@@ -43,6 +43,11 @@ public class SendReceiveSmsMessagesJavaApplication {
         SpringApplication.run(SendReceiveSmsMessagesJavaApplication.class, args);
     }
 
+    /**
+     * This route sends an SMS to the designated phone number.
+     *
+     * @see https://www.twilio.com/docs/messaging/quickstart
+     */
     @PostMapping(
         path = "/send", 
         consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
@@ -60,6 +65,15 @@ public class SendReceiveSmsMessagesJavaApplication {
         return message.getBody();
     }
 
+    /**
+     * This route does not reply to an incoming SMS.
+     *
+     * The route's response will contain TwiML that provides no further instructions to Twilio.
+     * In addition the response's status code will be an HTTP 200 OK, and the response will have
+     * the Content-Type header set to "application/xml; charset=utf-8".
+     *
+     * @see https://www.twilio.com/docs/messaging/twiml/message
+     */
     @RequestMapping(method = RequestMethod.POST, path = "/receive/no-response", produces = "application/xml")
     public String noResponse() {
         MessagingResponse twiml = new MessagingResponse.Builder()
@@ -67,6 +81,19 @@ public class SendReceiveSmsMessagesJavaApplication {
         return twiml.toXml();
     }
 
+    /**
+     * This route replies to the incoming SMS.
+     *
+     * If the request's form data contains an element named "Body" with the value "never gonna",
+     * the function's response will contain TwiML that instructs Twilio to send a reply SMS to
+     * the sender of the original SMS with a line from Rick Astley's hit "Never Gonna Give You Up".
+     * Otherwise it sends the same, stock line from the same song.
+     *
+     * In addition the response's status code will be an HTTP 200 OK, and the response will have
+     * the Content-Type header set to "application/xml; charset=utf-8".
+     *
+     * @see https://www.twilio.com/docs/messaging/twiml/message
+     */
     @PostMapping(path = "/receive/with-response", consumes = {
             MediaType.APPLICATION_FORM_URLENCODED_VALUE }, produces = "application/xml")
     public @ResponseBody String withResponse(@RequestParam("Body") String requestBody) {
