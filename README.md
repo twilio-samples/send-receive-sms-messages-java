@@ -2,8 +2,8 @@
 
 # Send & receive SMS messages with Twilio and Java
 
-Learn how to send and receive SMS with Twilio and Rust with this repository.
-In just a few lines of code, you can see your phone light up sending and receiving SMS with Twilio and Rust.
+Learn how to send and receive SMS with Twilio and Java with this repository.
+In just a few lines of code, you can see your phone light up sending and receiving SMS with Twilio and Java.
 
 ## Prerequisites
 
