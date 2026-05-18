@@ -79,7 +79,7 @@ public class SendReceiveSmsMessagesJavaApplication {
                     "This is the ship that made the Kessel Run in fourteen parsecs?")
             .create();
 
-        System.out.println("Sent SMS.");
+        logger.info("SMS has been sent. Its SID is: {} and status is: {}", message.getSid(), message.getStatus());
 
         return message.getBody();
     }
